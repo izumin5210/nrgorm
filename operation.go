@@ -43,6 +43,21 @@ func (op operation) String() string {
 	}
 }
 
+func (op operation) Kind() string {
+	switch op {
+	case operationQuery:
+		return "query"
+	case operationCreate:
+		return "create"
+	case operationUpdate:
+		return "update"
+	case operationDelete:
+		return "delete"
+	default:
+		return "row_query"
+	}
+}
+
 func (op operation) Name(sql string) string {
 	if op == operationUnknown {
 		return strings.Split(sql, " ")[0]
@@ -66,21 +81,21 @@ func (op operation) callbackProcessor(db *gorm.DB) *gorm.CallbackProcessor {
 }
 
 func (op operation) registerBeforeCallback(db *gorm.DB, dbName string, callback func(*gorm.Scope)) {
-	op.callbackProcessor(db).Before(op.callbackName(dbName)).Register(op.beforeCallbackName(dbName), callback)
+	op.callbackProcessor(db).Before(op.callbackName()).Register(op.beforeCallbackName(dbName), callback)
 }
 
 func (op operation) registerAfterCallback(db *gorm.DB, dbName string, callback func(*gorm.Scope)) {
-	op.callbackProcessor(db).After(op.callbackName(dbName)).Register(op.afterCallbackName(dbName), callback)
+	op.callbackProcessor(db).After(op.callbackName()).Register(op.afterCallbackName(dbName), callback)
 }
 
-func (op operation) callbackName(dbName string) string {
-	return fmt.Sprintf("%s:%s:%s", namespace, dbName, strings.ToLower(op.String()))
+func (op operation) callbackName() string {
+	return fmt.Sprintf("gorm:%s", op.Kind())
 }
 
 func (op operation) beforeCallbackName(dbName string) string {
-	return fmt.Sprintf("%s_%s", op.callbackName(dbName), "before")
+	return fmt.Sprintf("%s:%s:%s_%s", namespace, dbName, op.callbackName(), "before")
 }
 
 func (op operation) afterCallbackName(dbName string) string {
-	return fmt.Sprintf("%s_%s", op.callbackName(dbName), "after")
+	return fmt.Sprintf("%s:%s:%s_%s", namespace, dbName, op.callbackName(), "after")
 }
