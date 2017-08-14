@@ -1,6 +1,8 @@
 package nrgorm
 
 import (
+	"fmt"
+
 	"github.com/jinzhu/gorm"
 	"github.com/newrelic/go-agent"
 )
@@ -35,14 +37,18 @@ func getTxn(scope *gorm.Scope) newrelic.Transaction {
 
 func setStartTimeToScope(scope *gorm.Scope) {
 	startTime := newrelic.StartSegmentNow(getTxn(scope))
-	scope.Set(startTimeKey, &startTime)
+	scope.Set(getStartTimeKey(scope), &startTime)
 }
 
 func getStartTimeFromScope(scope *gorm.Scope) *newrelic.SegmentStartTime {
-	if v, ok := scope.Get(startTimeKey); !ok {
+	if v, ok := scope.Get(getStartTimeKey(scope)); !ok {
 		return nil
 	} else if startTime, ok := v.(*newrelic.SegmentStartTime); ok {
 		return startTime
 	}
 	return nil
+}
+
+func getStartTimeKey(scope *gorm.Scope) string {
+	return fmt.Sprintf("%s#%s", startTimeKey, scope.InstanceID())
 }
