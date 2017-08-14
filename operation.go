@@ -15,7 +15,7 @@ const (
 )
 
 const (
-	namespace = "github.com/izumin5210/nrgorm"
+	namespace = "nrgorm"
 )
 
 func operations() []operation {
