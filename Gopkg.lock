@@ -4,7 +4,7 @@
 [[projects]]
   name = "github.com/jinzhu/gorm"
   packages = ["."]
-  revision = "6732a50"
+  revision = "6732a50dfbf1777a5915b7e04af006badacea3be"
 
 [[projects]]
   branch = "master"
@@ -21,6 +21,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "89dae6e75a075d43e241aed491f20cf541bc80c4ca122a3a5db1faf87cc4d1f1"
+  inputs-digest = "a86ddd47ed513dc039f6ee54fde4d8b6f9c5c6f15f6ec70ff4dbd1347d2c6e64"
   solver-name = "gps-cdcl"
   solver-version = 1
