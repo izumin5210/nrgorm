@@ -1,10 +1,7 @@
 package nrgorm
 
 import (
-	"fmt"
-
 	"github.com/jinzhu/gorm"
-	"github.com/newrelic/go-agent"
 )
 
 type reporter interface {
@@ -46,6 +43,4 @@ func (r *repoImpl) Report(startTime *newrelic.SegmentStartTime, tableName string
 		DatabaseName:       r.dbName,
 	}
 	err := seg.End()
-	fmt.Println((*startTime))
-	fmt.Println(err)
 }
