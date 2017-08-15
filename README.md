@@ -45,7 +45,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	defer txn.End()
 
 	// Set newrelic.Transaction to *gorm.DB
-	db = Wrap(txn, db)
+	db = nrgorm.Wrap(txn, db)
 
 	// do something...
 }
@@ -58,7 +58,7 @@ var db *gorm.DB
 
 func WrapDB() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		db = Wrap(db, nrgin.Transcation(c))
+		db = nrgorm.Wrap(db, nrgin.Transcation(c))
 	}
 }
 
