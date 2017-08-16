@@ -12,14 +12,18 @@ type callbacks struct {
 func RegisterCallbacks(db *gorm.DB, dbName string) {
 	reporter := newReporter(db, dbName)
 	c := newCallbacks(reporter)
-	for _, op := range operations() {
-		op.registerBeforeCallback(db, dbName, c.beforeFunc())
-		op.registerAfterCallback(db, dbName, c.afterFunc(op))
-	}
+	c.registerCallbacks(db, dbName)
 }
 
 func newCallbacks(reporter reporter) *callbacks {
 	return &callbacks{reporter: reporter}
+}
+
+func (c *callbacks) registerCallbacks(db *gorm.DB, dbName string) {
+	for _, op := range operations() {
+		op.registerBeforeCallback(db, dbName, c.beforeFunc())
+		op.registerAfterCallback(db, dbName, c.afterFunc(op))
+	}
 }
 
 func (c *callbacks) beforeFunc() func(scope *gorm.Scope) {

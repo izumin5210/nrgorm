@@ -2,10 +2,11 @@ package nrgorm
 
 import (
 	"github.com/jinzhu/gorm"
+	"github.com/newrelic/go-agent"
 )
 
 type reporter interface {
-	Report(startTime *newrelic.SegmentStartTime, tableName string, sql string, op operation)
+	Report(startTime *newrelic.SegmentStartTime, tableName string, sql string, op operation) error
 }
 
 type repoImpl struct {
@@ -33,7 +34,7 @@ func newReporter(db *gorm.DB, dbName string) reporter {
 	}
 }
 
-func (r *repoImpl) Report(startTime *newrelic.SegmentStartTime, tableName string, sql string, op operation) {
+func (r *repoImpl) Report(startTime *newrelic.SegmentStartTime, tableName string, sql string, op operation) error {
 	seg := newrelic.DatastoreSegment{
 		StartTime:          *startTime,
 		Product:            r.product,
@@ -42,5 +43,5 @@ func (r *repoImpl) Report(startTime *newrelic.SegmentStartTime, tableName string
 		ParameterizedQuery: sql,
 		DatabaseName:       r.dbName,
 	}
-	err := seg.End()
+	return seg.End()
 }
