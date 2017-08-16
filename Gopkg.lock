@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  branch = "master"
+  name = "github.com/erikstmartin/go-testdb"
+  packages = ["."]
+  revision = "8d10e4a1bae52cd8b81ffdec3445890d6dccab3d"
+
+[[projects]]
   name = "github.com/jinzhu/gorm"
   packages = ["."]
   revision = "6732a50dfbf1777a5915b7e04af006badacea3be"
@@ -21,6 +27,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "a86ddd47ed513dc039f6ee54fde4d8b6f9c5c6f15f6ec70ff4dbd1347d2c6e64"
+  inputs-digest = "c2275f8a07a090cd1b1a76c35ab01d2c7015facb17da3783cf14fa4949480753"
   solver-name = "gps-cdcl"
   solver-version = 1
