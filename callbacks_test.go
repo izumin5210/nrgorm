@@ -48,17 +48,38 @@ func Test_Callbacks_registerCallbacks(t *testing.T) {
 		return testdb.RowsFromCSVString([]string{"title"}, "awesome"), nil
 	})
 
-	err = db.Create(&Post{Title: "awesome"}).Error
-	if err != nil {
-		t.Fatalf("Unexpected error: %v", err)
+	cases := []struct {
+		run func() error
+		op  operation
+	}{
+		{
+			run: func() error { return db.Create(&Post{Title: "awesome"}).Error },
+			op:  operationCreate,
+		},
+		{
+			run: func() error { return db.Model(&Post{}).Find(&Post{}, &Post{Title: "awesome"}).Error },
+			op:  operationQuery,
+		},
+		{
+			run: func() error { return db.Update(&Post{Title: "awesomeawesome"}).Error },
+			op:  operationUpdate,
+		},
+		{
+			run: func() error { return db.Delete(&Post{Title: "awesomeawesome"}).Error },
+			op:  operationDelete,
+		},
 	}
 
-	err = db.Model(&Post{}).Find(&Post{}, &Post{Title: "awesome"}).Error
-	if err != nil {
-		t.Fatalf("Unexpected error: %v", err)
+	for i, c := range cases {
+		if err := c.run(); err != nil {
+			t.Fatalf("Unexpected error: %v", err)
+		}
+		if got, want := calls[i].op, c.op; got != want {
+			t.Errorf("Report() received op %v, want %v", got, want)
+		}
 	}
 
-	if got, want := len(calls), 2; got != want {
-		t.Errorf("reporter#report() called %d times, want %d times", got, want)
+	if got, want := len(calls), len(cases); got != want {
+		t.Errorf("Report() calls %d times, want %d times", got, want)
 	}
 }
