@@ -1,5 +1,8 @@
 # NrGorm
 [![Build Status](https://travis-ci.org/izumin5210/nrgorm.svg?branch=master)](https://travis-ci.org/izumin5210/nrgorm)
+[![GoDoc](https://godoc.org/github.com/izumin5210/nrgorm?status.svg)](https://godoc.org/github.com/izumin5210/nrgorm)
+[![Go project version](https://badge.fury.io/go/github.com%2Fizumin5210%2Fnrgorm.svg)](https://badge.fury.io/go/github.com%2Fizumin5210%2Fnrgorm)
+[![license](https://img.shields.io/github/license/izumin5210/nrgorm.svg)](./LICENSE)
 
 ## Example
 ### Simple app
