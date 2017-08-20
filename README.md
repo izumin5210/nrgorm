@@ -1,4 +1,5 @@
 # NrGorm
+[![Build Status](https://travis-ci.org/izumin5210/nrgorm.svg?branch=master)](https://travis-ci.org/izumin5210/nrgorm)
 
 ## Example
 ### Simple app
