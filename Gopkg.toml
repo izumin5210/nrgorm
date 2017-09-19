@@ -24,7 +24,8 @@
 [[constraint]]
   name = "github.com/jinzhu/gorm"
   # version = "^1.0.0"
-  revision = "6732a50dfbf1777a5915b7e04af006badacea3be"
+  # revision = "6732a50dfbf1777a5915b7e04af006badacea3be"
+  branch = "master"
 
 [[constraint]]
   name = "github.com/newrelic/go-agent"
