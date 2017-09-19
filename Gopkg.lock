@@ -8,9 +8,10 @@
   revision = "8d10e4a1bae52cd8b81ffdec3445890d6dccab3d"
 
 [[projects]]
+  branch = "master"
   name = "github.com/jinzhu/gorm"
   packages = ["."]
-  revision = "6732a50dfbf1777a5915b7e04af006badacea3be"
+  revision = "b1885a643b4977c9089d77eb07c0fd96591f94b8"
 
 [[projects]]
   branch = "master"
@@ -27,6 +28,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c2275f8a07a090cd1b1a76c35ab01d2c7015facb17da3783cf14fa4949480753"
+  inputs-digest = "f91ff87b08be9d3b07050279c6164e68025d2d18de826c117163988d351c934c"
   solver-name = "gps-cdcl"
   solver-version = 1
